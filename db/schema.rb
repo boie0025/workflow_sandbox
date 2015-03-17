@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923030150) do
+ActiveRecord::Schema.define(version: 20150317132237) do
 
-  create_table "fusion_workflows", force: true do |t|
-    t.string   "workflow_state"
-    t.string   "type"
+  create_table "fusion_workflows", force: :cascade do |t|
+    t.string   "workflow_state", limit: 255
+    t.string   "type",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "brand_id"
+    t.integer  "medium_id"
   end
 
 end

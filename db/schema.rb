@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317132237) do
+ActiveRecord::Schema.define(version: 20150317185339) do
+
+  create_table "background_job_groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "expires_at"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "arguments"
+  end
+
+  create_table "background_job_members", force: :cascade do |t|
+    t.integer  "background_job_group_id"
+    t.string   "name"
+    t.datetime "expires_at"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "background_job_members", ["background_job_group_id"], name: "index_background_job_members_on_background_job_group_id"
 
   create_table "fusion_workflows", force: :cascade do |t|
     t.string   "workflow_state", limit: 255

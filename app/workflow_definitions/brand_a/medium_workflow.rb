@@ -30,22 +30,22 @@ module BrandA
 
     def on_step_one_entry(*args)
       puts "initialize new workflow"
-      WorkflowActivityJob.new(workflow_id: self.id).perform
+      WorkflowActivityJob.perform_later(workflow_id: self.id)
     end
 
     def on_step_two_entry(new_state, *args)
       puts "begin step two"
-      WorkflowActivityJob.new(workflow_id: self.id).perform
+      SeveralChildrenJob.define_children(workflow_id: self.id)
     end
 
     def on_step_three_entry(new_state, *args)
       puts "begin step three"
-      WorkflowActivityJob.new(workflow_id: self.id).perform
+      WorkflowActivityJob.perform_later(workflow_id: self.id)
     end
 
     def on_step_four_entry(new_state, *args)
       puts "begin step four"
-      WorkflowActivityJob.new(workflow_id: self.id).perform
+      WorkflowActivityJob.perform_later(workflow_id: self.id)
     end
 
     def on_step_five_entry(new_state, *args)

@@ -3,7 +3,10 @@ module BrandA
 
     workflow do
       state :new do
-        event :begin, transitions_to: :step_one
+        event :begin, transitions_to: :bootstrap
+      end
+      state :bootstrap do
+        event :complete, transitions_to: :step_one
       end
       state :step_one do
         event :complete, transitions_to: :step_two
@@ -26,6 +29,9 @@ module BrandA
       end
       state :accepted
       state :rejected
+      on_entry do
+        raise Exception
+      end
     end
 
     def on_step_one_entry(*args)
